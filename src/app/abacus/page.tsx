@@ -12,7 +12,7 @@ export default function Page() {
   return (
     <div className={pagewideCSS["page"]}>
       <main className={pagewideCSS["main"]}>
-        <NumberString value="0123456789" />
+        <NumberString value={123456789} />
       </main>
     </div>
   );

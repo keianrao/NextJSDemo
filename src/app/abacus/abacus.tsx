@@ -14,7 +14,7 @@ function forceIntoDigitString(number: number, length: number) {
 
 
 type NumberDigitProps = {
-  renderedInteger: number;
+  renderedInteger: string;
   offset: number;
 };
 
