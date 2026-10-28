@@ -28,7 +28,7 @@ export function createEditableDigitString(length: number) {
     });
   }
 
-  return [digitString, editDigitString];
+  return [digitString, editDigitString] as const;
 }
 
 

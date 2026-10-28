@@ -1,7 +1,8 @@
 'use client'
 
+import { digit, numberRange } from "./util";
+import { createEditableDigitString } from "./util";
 import widgetCSS from "./digitstring.module.css";
-import { digit, numberRange } from "./util.ts";
 
 
 
@@ -18,7 +19,7 @@ function DigitDisplay(props: DigitDisplayProps) {
 
   const value = digitString[offset];
 
-  function onKeyDown({ code }) {
+  function onKeyDown({ code }: { code: string }) {
     if (!onDigitKeyDown) return;
     if (code == "Digit0") onDigitKeyDown(0, offset);
     if (code == "Digit1") onDigitKeyDown(1, offset);
@@ -30,6 +31,8 @@ function DigitDisplay(props: DigitDisplayProps) {
     if (code == "Digit7") onDigitKeyDown(7, offset);
     if (code == "Digit8") onDigitKeyDown(8, offset);
     if (code == "Digit9") onDigitKeyDown(9, offset);
+    if (code == "Backspace") onDigitKeyDown(0, offset);
+    if (code == "Delete") onDigitKeyDown(0, offset);
   }
 
   const attributes = {

@@ -1,17 +1,25 @@
 
 .digit-string {
-	margin-left: auto;
-	margin-right: auto;
+	padding-bottom: 0.50em;
 }
 
 .digit-string {
 	display: grid;
-	gap: 0.00em;
-	font-family: "MS Mincho", "IPAMincho";
-	font-size: 28pt;
+	font-family: "MS Mincho", "IPAMincho", monospace;
+	font-size: 24pt;
+	gap: 0.5em;
 }
+
+
+
+
 
 .digit {
 	grid-row: 1;
-	padding: 0.25em 0.50em;
+}
+
+.digit {
+	display: grid;
+	justify-content: center;
+	align-items: center;
 }

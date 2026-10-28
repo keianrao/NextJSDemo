@@ -12,7 +12,9 @@ export default function Page() {
   return (
     <div className={pagewideCSS["page"]}>
       <main className={pagewideCSS["main"]}>
-        <Abacus />
+        <Abacus columnCount={6} className={pagewideCSS["for-mobile"]} />
+        <Abacus columnCount={10} className={pagewideCSS["for-small"]} />
+        <Abacus columnCount={16} className={pagewideCSS["for-full"]} />
       </main>
     </div>
   );
