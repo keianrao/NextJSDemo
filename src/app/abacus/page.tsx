@@ -1,7 +1,7 @@
 
 import type { Metadata } from "next";
 import pagewideCSS from "./page.module.css";
-import { NumberString } from "./abacus";
+import { DigitStringWidget } from "./abacus";
 
 export const metadata: Metadata = {
   title: "NextJSDemo - Abacus",
@@ -12,7 +12,7 @@ export default function Page() {
   return (
     <div className={pagewideCSS["page"]}>
       <main className={pagewideCSS["main"]}>
-        <NumberString value={123456789} />
+        <DigitStringWidget />
       </main>
     </div>
   );
