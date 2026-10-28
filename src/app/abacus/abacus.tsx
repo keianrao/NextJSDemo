@@ -63,7 +63,7 @@ function DigitWidget(props: DigitWidgetProps) {
   }
 
   const attributes = {
-    "className": abacusCSS["number-digit"],
+    "className": abacusCSS["digit"],
     "tabIndex": 0,
     "onKeyDown": onKeyDown
   };
@@ -75,17 +75,24 @@ function DigitWidget(props: DigitWidgetProps) {
 
 
 
-export type DigitStringWidgetProps = {};
+export type DigitStringWidgetProps = {
+  digitString: ReturnType<typeof createEditableDigitString>[0],
+  editDigitString: ReturnType<typeof createEditableDigitString>[1],
+};
 
 export function DigitStringWidget(props: DigitStringWidgetProps) {
-  const [digitString, editDigitString] = createEditableDigitString(10);
+  const { digitString, editDigitString } = props;
 
-  const attributes = {
-    "className": abacusCSS["number-string"]
-  };
+  const digitCount = digitString.length;
 
   const digitWidgets = function () {
-    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(offset => (
+    function numberRange(min: number, max: number) {
+      const hyphens = "-".repeat(max - min).split("");
+      const values = hyphens.map((_, o) => min + o);
+      return values;
+    }
+
+    return numberRange(0, digitCount - 1).map(offset => (
       <DigitWidget
         key={offset}
         digitString={digitString}
@@ -95,5 +102,107 @@ export function DigitStringWidget(props: DigitStringWidgetProps) {
     ));
   }();
 
+  const attributes = {
+    "className": abacusCSS["digit-string"]
+  };
+
   return <div {...attributes}>{digitWidgets}</div>;
+}
+
+
+
+
+
+type AbacusDisplayProps = {
+  digitString: ReturnType<typeof createEditableDigitString>[0]
+};
+
+function AbacusDisplay(props: AbacusDisplayProps) {
+  const { digitString } = props;
+
+  const digitCount = digitString.length;
+
+  // We need to define the width of the frame and each bar.
+  // Then we determine the width required.
+  // Height would be constant based on our bar type.
+  // Maybe we can configure the bead width and height.
+  const w = 80, h = 40;
+  const we = 2;
+  const he = 2;
+  const ce = "#603030";
+
+  const topEdge = function () {
+    const attributes = {
+      x: 0,
+      y: 0,
+      width: 100,
+      height: he,
+      fill: ce,
+    };
+    return <rect {...attributes} />;
+  }();
+
+  const bottomEdge = function () {
+    const attributes = {
+      x: 0,
+      y: h - he,
+      width: 100,
+      height: he,
+      fill: ce,
+    };
+    return <rect {...attributes} />;
+  }();
+
+  const leftEdge = function () {
+    const attributes = {
+      x: 0,
+      y: 0,
+      width: we,
+      height: h,
+      fill: ce,
+    };
+    return <rect {...attributes} />;
+  }();
+
+  const rightEdge = function () {
+    const attributes = {
+      x: w - we,
+      y: 0,
+      width: we,
+      height: h,
+      fill: ce,
+    };
+    return <rect {...attributes} />;
+  }();
+
+  return (
+    <svg viewBox={[0, 0, w, h].join(" ")} role="img">
+      {topEdge}{bottomEdge}{leftEdge}{rightEdge}
+    </svg>
+  );
+}
+
+
+
+
+export type AbacusProps = {};
+
+export function Abacus(props: AbacusProps) {
+  const [digitString, editDigitString] = createEditableDigitString(16);
+
+  const attributes = {
+    "className": abacusCSS["abacus"]
+  };
+
+  return (
+    <div {...attributes}>
+      <DigitStringWidget
+        digitString={digitString}
+        editDigitString={editDigitString}
+      />
+      <AbacusDisplay
+        digitString={digitString}
+      />
+    </div>
+  );
 }

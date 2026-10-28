@@ -1,18 +1,31 @@
 
-.number-string {
+.digit-string {
 	margin-left: auto;
 	margin-right: auto;
 }
 
-.number-string {
+.digit-string {
 	display: grid;
-	gap: 0.50em;
+	gap: 0.00em;
 	font-family: "MS Mincho", "IPAMincho";
 	font-size: 28pt;
 }
 
-.number-digit {
+.digit {
 	grid-row: 1;
 	padding: 0.25em 0.50em;
 }
 
+
+
+
+.abacus {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.abacus {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 20px;
+}
