@@ -13,6 +13,7 @@ export default function Page() {
     <div className={pagewideCSS.page}>
       <main className={pagewideCSS.main}>
         <Link href="abacus">Abacus</Link>
+        <Link href="capturedemo">Screen capture demo</Link>
       </main>
     </div>
   );
