@@ -5,7 +5,7 @@ import CaptureDemo from "./capturedemo";
 import pagewideCSS from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "NextJSDemo - Screen capture",
+  title: "Screen capture",
   description: "Check for the Screen Capture API",
 };
 

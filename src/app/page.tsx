@@ -14,6 +14,7 @@ export default function Page() {
       <main className={pagewideCSS.main}>
         <Link href="abacus">Abacus</Link>
         <Link href="capturedemo">Screen capture demo</Link>
+        <Link href="sqlreference">Basic SQL reference</Link>
       </main>
     </div>
   );

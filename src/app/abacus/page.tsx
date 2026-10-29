@@ -4,7 +4,7 @@ import pagewideCSS from "./page.module.css";
 import { Abacus } from "./abacus";
 
 export const metadata: Metadata = {
-  title: "NextJSDemo - Abacus",
+  title: "Abacus",
   description: "An editable numerical string",
 };
 

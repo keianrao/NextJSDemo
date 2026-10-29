@@ -48,3 +48,22 @@
   flex-direction: column;
   font-size: 16pt;
 }
+
+
+
+
+
+.footer {
+  padding: 0.5em;
+  background: #404040;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+}
+
+.footer a {
+  color: grey;
+}
