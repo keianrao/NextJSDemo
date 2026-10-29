@@ -1,30 +1,24 @@
 'use client';
 
 import { useState } from "react";
-import cardData from "./carddata";
-import pagewideCSS from "./page.module.css";
+import { dialects, FilterState } from "./widget";
+import widgetClasses from "./widget.module.css";
 
 
 
-const dialects = function () {
-	const set = cardData.reduce(
-		(set, e) => set.add(e.dialect),
-		new Set<typeof cardData[number]["dialect"]>()
-	);
-	return Array.from(set.values());
-}();
+export type ControlsProps = {
+	filterState: FilterState;
+};
 
-
-
-export default function Widget() {
-	const [selectedDialect, selectDialect] = useState<typeof dialects[number]>(dialects[0]);
-	const [titleFilter, setTitleFilter] = useState("");
+export default function Controls(props: ControlsProps) {
+	const { selectedDialect, selectDialect } = props.filterState;
+	const { titleFilter, setTitleFilter } = props.filterState;
 
 	const dialectSelectionButtons = function () {
 		return dialects.map(function (dialect) {
 			const selected = dialect == selectedDialect;
 			const attributes = {
-				"className": selected ? pagewideCSS["selected"] : ""
+				"className": selected ? widgetClasses["selected"] : ""
 			};
 			return <button key={dialect} {...attributes}>{dialect}</button>;
 		});
@@ -41,7 +35,7 @@ export default function Widget() {
 	}();
 
 	return (
-		<div className={pagewideCSS["controls"]}>
+		<div className={widgetClasses["controls"]}>
 			{dialectSelectionButtons}
 			{titleFilterField}
 		</div>

@@ -1,21 +1,33 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
-import pagewideCSS from "./page.module.css";
+import pageClasses from "./page.module.css";
+
+const links = [
+  { href: "abacus", title: "Abacus" },
+  { href: "capturedemo", title: "Screen capture demo" },
+  { href: "sqlreference", title: "Basic SQL reference" }
+];
 
 export const metadata: Metadata = {
-  title: "NextJSDemo - Sitemap",
+  title: "Sitemap",
   description: "Links to corners of this website",
 };
 
 export default function Page() {
-  return (
-    <div className={pagewideCSS.page}>
-      <main className={pagewideCSS.main}>
-        <Link href="abacus">Abacus</Link>
-        <Link href="capturedemo">Screen capture demo</Link>
-        <Link href="sqlreference">Basic SQL reference</Link>
-      </main>
+  const linkCards = links.map(function ({ href, title }) {
+    return (
+      <Link key={href} href={href} className={pageClasses["link-card"]}>
+        {title}
+      </Link>
+    );
+  });
+
+  const linkGrid = (
+    <div className={pageClasses["link-cards"]}>
+      {linkCards}
     </div>
   );
+
+  return linkGrid;
 }

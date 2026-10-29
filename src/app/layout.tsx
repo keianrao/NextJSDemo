@@ -21,8 +21,35 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import type { Metadata } from "next";
-import Footer from "./footer";
-import "./globals.css";
+import Link from "next/link";
+import layoutClasses from "./layout.module.css";
+
+function Header() {
+  return (
+    <header className={layoutClasses.header}>
+      <nav className={layoutClasses["header-buttons"]}>
+        <Link href=".."><button>Back</button></Link>
+        <Link href="/"><button>Home</button></Link>
+      </nav>
+    </header>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className={layoutClasses.footer}>
+      <div>
+        Written by hand by Keian Rao Eng Haau. © 2026
+      </div>
+      <div>
+        AGPL-licensed.&nbsp;
+        <Link href="https://github.com/keianrao/NextJSDemo">
+          https://github.com/keianrao/NextJSDemo
+        </Link>
+      </div>
+    </footer>
+  );
+}
 
 export const metadata: Metadata = {
   title: {
@@ -33,9 +60,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en">
-      <body>
-        {children}
+    <html lang="en" className={layoutClasses.html}>
+      <body className={layoutClasses.body}>
+        <Header />
+        <div className={layoutClasses.page}>
+          <main className={layoutClasses.main}>
+            {children}
+          </main>
+        </div>
         <Footer />
       </body>
     </html>

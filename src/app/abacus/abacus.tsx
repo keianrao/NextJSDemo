@@ -4,15 +4,15 @@ import { useState } from "react";
 import { Fragment } from "react";
 import { DigitStringDisplay } from "./digitstring";
 import { digit, numberRange, iresc } from "./util";
-import { createEditableDigitString } from "./util";
-import widgetCSS from "./abacus.module.css";
+import { useEditableDigitString } from "./util";
+import widgetClasses from "./abacus.module.css";
 
 
 
 
 
 type AbacusDisplayProps = {
-  digitString: ReturnType<typeof createEditableDigitString>[0]
+  digitString: ReturnType<typeof useEditableDigitString>[0]
 };
 
 function AbacusDisplay(props: AbacusDisplayProps) {
@@ -190,11 +190,13 @@ export type AbacusProps = {
   className?: string
 };
 
-export function Abacus({ columnCount, className, ...otherAttrs }: AbacusProps) {
-  const [digitString, editDigitString] = createEditableDigitString(columnCount);
+export function Abacus(props: AbacusProps) {
+  const { columnCount, className, ...otherAttrs } = props;
+  
+  const [digitString, editDigitString] = useEditableDigitString(columnCount);
 
   const attributes = {
-    "className": [className, widgetCSS["abacus"]].filter(Boolean).join(" ")
+    "className": [className, widgetClasses.abacus].filter(Boolean).join(" ")
   };
 
   return (

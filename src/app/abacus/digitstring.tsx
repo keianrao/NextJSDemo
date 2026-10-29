@@ -1,8 +1,8 @@
 'use client'
 
 import { digit, numberRange } from "./util";
-import { createEditableDigitString } from "./util";
-import widgetCSS from "./digitstring.module.css";
+import { useEditableDigitString } from "./util";
+import widgetClasses from "./digitstring.module.css";
 
 
 
@@ -36,7 +36,7 @@ function DigitDisplay(props: DigitDisplayProps) {
   }
 
   const attributes = {
-    "className": widgetCSS["digit"],
+    "className": widgetClasses["digit"],
     "tabIndex": 0,
     "onKeyDown": onKeyDown
   };
@@ -49,8 +49,8 @@ function DigitDisplay(props: DigitDisplayProps) {
 
 
 export type DigitStringDisplayProps = {
-  digitString: ReturnType<typeof createEditableDigitString>[0],
-  editDigitString: ReturnType<typeof createEditableDigitString>[1],
+  digitString: ReturnType<typeof useEditableDigitString>[0],
+  editDigitString: ReturnType<typeof useEditableDigitString>[1],
 };
 
 export function DigitStringDisplay(props: DigitStringDisplayProps) {
@@ -70,7 +70,7 @@ export function DigitStringDisplay(props: DigitStringDisplayProps) {
   }();
 
   const attributes = {
-    "className": widgetCSS["digit-string"]
+    "className": widgetClasses["digit-string"]
   };
 
   return <div {...attributes}>{DigitDisplays}</div>;
