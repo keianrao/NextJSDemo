@@ -17,8 +17,8 @@ The Docker image will be hosted on [Render](https://render.com/login).
 
 ![Index of website, showing three pages, 'Abacus' and 'Basic SQL examples' among them.](public/screenshot-3-2026_10_30.png)
 ![Abacus. 16-digit one, rendered on the page, with numbers above that can be typed into to manipulate.](public/screenshot-2-2026_10_29.png)
-![Basic SQL examples. 'create' had been entered into a search box, and three cards are shown 'Insert row with immediate values', 'Create table', 'Add column to table', each with a SQL statement showing the syntax on variedly-typed columns.](public/screenshot-1-2026_10_30.png)
-![Unfiltered cards, though search box is off-screen from scrolling to bottom. There are example for modifying columns.](public/screenshot-2-2026_10_30.png)
+![Basic SQL examples. 'create' had been entered into a search box, and three cards are shown 'Insert row with immediate values', 'Create table', 'Add column to table', each with a SQL statement showing the syntax on variedly-typed columns.](public/screenshot-4-2026_10_30.png)
+![Unfiltered cards (though search box is off-screen by scrolling to bottom). There are examples for modifying columns, and a caveats and references section with tips and links for MySQL here.](public/screenshot-5-2026_10_30.png)
 
 
 

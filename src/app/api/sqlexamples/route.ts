@@ -56,14 +56,6 @@ const dataAsJson = `[
 	}
 ]`;
 
-// MySQL uses backticks to escape table and column names.
-// MySQL doesn't allow expressions for the default value of a column.
-
-// https://dev.mysql.com/blog-archive/storing-uuid-values-in-mysql-tables/
-// https://dev.mysql.com/doc/refman/9.7/en/numeric-types.html
-// https://dev.mysql.com/doc/refman/9.7/en/boolean-literals.html
-// https://onecompiler.com/mysql
-
 const dataAsJsObject = JSON.parse(dataAsJson);
 
 export async function GET() {

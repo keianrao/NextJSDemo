@@ -63,3 +63,69 @@
   font-size: 10pt;
 }
 
+
+
+
+
+.dialect-header {
+  border-radius: 16px;
+  padding: 0.9em 1em;
+  background: darkgreen;
+  box-shadow: 0px 2px 4px #0002;
+  border: 1px solid #0004;
+  color: #DDD;
+}
+
+.dialect-header {
+  display: grid;
+  gap: 0.3em;
+}
+
+.dialect-header h5 {
+  margin: 0;
+  font-family: inherit;
+  font-size: 12pt;
+}
+
+.dialect-header p {
+  margin: 0;
+}
+
+.dialect-header p::before {
+  content: "・";
+  line-height: 1em;
+}
+
+
+
+
+
+.dialect-footer {
+  border-radius: 16px;
+  padding: 0.9em 1em;
+  background: darkolivegreen;
+  box-shadow: 0px 2px 4px #0002;
+  border: 1px solid #0004;
+  color: #DDD;
+}
+
+.dialect-footer {
+  display: grid;
+  gap: 1em;
+}
+
+.dialect-footer h5 {
+  margin: 0;
+  font-family: inherit;
+  font-size: 12pt;
+}
+
+.dialect-footer a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.dialect-footer a::before {
+  content: "・";
+  line-height: 1em;
+}
