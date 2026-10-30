@@ -1,4 +1,6 @@
 
+[![Docker build](https://github.com/keianrao/NextJSDemo/actions/workflows/docker-image.yml/badge.svg?branch=mainline)](https://github.com/keianrao/NextJSDemo/actions/workflows/docker-image.yml)
+
 ## Introduction
 
 This is a collection of single-file pages, each containing a toy app, with little in common. Unlike my historical JavaScript demos, these pages are all in React, not plain HTML.

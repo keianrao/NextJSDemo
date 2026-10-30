@@ -15,7 +15,7 @@ export default function DialectFooter(props: DialectFooterProps) {
 		return dialectReferences.filter(e => e.dialect == selectedDialect);
 	}();
 
-	const caveatLines = function () {
+	const referenceLines = function () {
 		return relevantReferences.map(function ({ link }) {
 			return <a key={link} href={link} target="__blank">{link}</a>;
 		})
@@ -24,7 +24,7 @@ export default function DialectFooter(props: DialectFooterProps) {
 	return (
 		<div className={widgetClasses["dialect-footer"]}>
 			<h5>References</h5>
-			{caveatLines}
+			{referenceLines}
 		</div>
 	);
 }
