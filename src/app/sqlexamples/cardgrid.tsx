@@ -24,7 +24,10 @@ export default function CardGrid(props: CardGridProps) {
 					return s.split(" ").filter(Boolean).map(s => s.toLowerCase());
 				};
 				const filterWords = toKeywords(titleFilter);
-				const itemWords = toKeywords(item.title);
+				const itemWords = [
+					...toKeywords(item.title),
+					...toKeywords(item.extra_keywords)
+				]
 				return filterWords.every(word => itemWords.includes(word));
 			});
 	}();

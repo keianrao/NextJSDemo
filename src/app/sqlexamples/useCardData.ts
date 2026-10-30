@@ -6,6 +6,7 @@ export type CardDataItem = {
 	dialect: string;
 	title: string;
 	statement: string;
+	extra_keywords: string;
 };
 
 export type CardData = CardDataItem[];
@@ -22,7 +23,7 @@ export function useCardData() {
 			setCardData([]);
 			setCardDataError(undefined);
 
-			const httpResponse = await fetch("/api/sqlreference");
+			const httpResponse = await fetch("/api/sqlexamples");
 			if (!httpResponse.ok) {
 				const { status, statusText } = httpResponse;
 				throw new Error(status + ": " + statusText);
