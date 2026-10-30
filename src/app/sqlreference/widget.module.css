@@ -8,22 +8,22 @@
 
 
 
-.controls {
+.filter-controls {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5em;
 }
 
-.controls button {
+.filter-controls button {
   font-family: inherit;
   font-size: 12pt;
 }
 
-.controls button.selected {
+.filter-controls button.selected {
   box-shadow: 0px 1px 4px #0008;
 }
 
-.controls input {
+.filter-controls input {
   width: 100%;
   font-family: inherit;
   font-size: 14pt;
@@ -33,14 +33,14 @@
 
 
 
-.cards {
+.card-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.5em;
   font-family: sans-serif;
 }
 
-.cards > * {
+.card-grid > * {
   border-radius: 16px;
   padding: 0.5em 0.7em 0.6em 0.7em;
   background: aliceblue;
@@ -48,17 +48,17 @@
   border: 1px solid #0004;
 }
 
-.cards > * {
+.card-grid > * {
   display: grid;
   gap: 0.5em;
 }
 
-.cards > * > h5 {
+.card-grid > * > h5 {
   margin: 0;
   font-size: 12pt;
 }
 
-.cards > * > pre {
+.card-grid > * > pre {
   margin: 0;
   font-size: 10pt;
 }

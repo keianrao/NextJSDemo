@@ -1,19 +1,19 @@
+'use client'
 
-import data from "./data";
-import { FilterState } from "./widget";
+import { useCardData } from "./useCardData";
+import { FilterState } from "./useFilterState";
 import widgetClasses from "./widget.module.css";
 
-
-
-export type CardsProps ={
-	filterState: FilterState
+export type CardGridProps ={
+	filterState: FilterState;
 };
 
-export default function Cards(props: CardsProps) {
+export default function CardGrid(props: CardGridProps) {
 	const { selectedDialect, titleFilter } = props.filterState;
+	const { cardData } = useCardData(); 
 
-	const matchingData = function () {
-		return data
+	const matchingCardData = function () {
+		return cardData
 			.filter(function (item) {
 				if (!selectedDialect) return true;
 				return item.dialect == selectedDialect;
@@ -25,12 +25,12 @@ export default function Cards(props: CardsProps) {
 				};
 				const filterWords = toKeywords(titleFilter);
 				const itemWords = toKeywords(item.title);
-				return itemWords.some(word => filterWords.includes(word));
+				return filterWords.every(word => itemWords.includes(word));
 			});
 	}();
 
-  	const displayedCards = function () {
-  	  return matchingData.map(function ({ title, statement }) {
+  	const cardGridItems = function () {
+  	  return matchingCardData.map(function ({ title, statement }) {
   	  	return (
   	  		<div key={title}>
   	  			<h5>{title}</h5>
@@ -41,8 +41,8 @@ export default function Cards(props: CardsProps) {
   	}();
 
 	return (
-   	    <div className={widgetClasses["cards"]}>
-   	      {displayedCards}
+   	    <div className={widgetClasses["card-grid"]}>
+   	      {cardGridItems}
    	    </div>
 	);
 };

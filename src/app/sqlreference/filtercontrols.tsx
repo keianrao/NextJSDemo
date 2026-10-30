@@ -1,18 +1,16 @@
-'use client';
+'use client'
 
-import { useState } from "react";
-import { dialects, FilterState } from "./widget";
+import { FilterState } from "./useFilterState";
 import widgetClasses from "./widget.module.css";
 
-
-
-export type ControlsProps = {
+export type FilterControlsProps = {
 	filterState: FilterState;
 };
 
-export default function Controls(props: ControlsProps) {
+export default function FilterControls(props: FilterControlsProps) {
 	const { selectedDialect, selectDialect } = props.filterState;
 	const { titleFilter, setTitleFilter } = props.filterState;
+	const { dialects } = props.filterState;
 
 	const dialectSelectionButtons = function () {
 		return dialects.map(function (dialect) {
@@ -35,7 +33,7 @@ export default function Controls(props: ControlsProps) {
 	}();
 
 	return (
-		<div className={widgetClasses["controls"]}>
+		<div className={widgetClasses["filter-controls"]}>
 			{dialectSelectionButtons}
 			{titleFilterField}
 		</div>
