@@ -17,10 +17,10 @@ The Docker image will be hosted on [Render](https://render.com/login).
 
 ## Screenshots
 
-![Index of website, showing three pages, 'Abacus' and 'Basic SQL examples' among them.](public/screenshot-3-2026_10_30.png)
-![Abacus. 16-digit one, rendered on the page, with numbers above that can be typed into to manipulate.](public/screenshot-2-2026_10_29.png)
-![Basic SQL examples. 'create' had been entered into a search box, and three cards are shown 'Insert row with immediate values', 'Create table', 'Add column to table', each with a SQL statement showing the syntax on variedly-typed columns.](public/screenshot-4-2026_10_30.png)
-![Unfiltered cards (though search box is off-screen by scrolling to bottom). There are examples for modifying columns, and a caveats and references section with tips and links for MySQL here.](public/screenshot-5-2026_10_30.png)
+![Index of website, showing three pages, 'Abacus' and 'Basic SQL examples' among them.](public/screenshots/screenshot-3-2026_10_30.png)
+![Abacus. 16-digit one, rendered on the page, with numbers above that can be typed into to manipulate.](public/screenshots/screenshot-2-2026_10_29.png)
+![Basic SQL examples. 'create' had been entered into a search box, and three cards are shown, for example 'Create table' with a SQL statement to demonstrate syntax with variedly-typed columns. And there are buttons for MySQL and PostgreSQL at the top.](public/screenshots/screenshot-1-2026_10_31.png)
+![Unfiltered cards (though search box is off-screen from scrolling to bottom). Cards with examples to alter columns, plus two sections here with tips and reference links for PostgreSQL.](public/screenshots/screenshot-2-2026_10_31.png)
 
 
 

@@ -15,16 +15,31 @@
 }
 
 .filter-controls button {
+  height: 2em;
+  padding: 0em 0.5em;
   font-family: inherit;
   font-size: 12pt;
+}
+
+.filter-controls button {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 }
 
 .filter-controls button.selected {
   box-shadow: 0px 1px 4px #0008;
 }
 
+.filter-controls button img {
+  width: 1em;
+  max-height: 100%;
+  object-fit: contain;
+}
+
 .filter-controls input {
   width: 100%;
+  padding: 0.25em 0.5em;
   font-family: inherit;
   font-size: 14pt;
 }

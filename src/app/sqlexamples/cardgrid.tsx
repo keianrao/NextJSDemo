@@ -33,9 +33,9 @@ export default function CardGrid(props: CardGridProps) {
 	}();
 
   	const cardGridItems = function () {
-  	  return matchingCardData.map(function ({ title, statement }) {
+  	  return matchingCardData.map(function ({ dialect, title, statement }) {
   	  	return (
-  	  		<div key={title}>
+  	  		<div key={dialect + " " + title}>
   	  			<h5>{title}</h5>
   	  			<pre>{statement}</pre>
   	  		</div>

@@ -3,6 +3,11 @@
 import { FilterState } from "./useFilterState";
 import widgetClasses from "./widget.module.css";
 
+const dialectLogoURLs = {
+	"MySQL": "/logos/mysql.png",
+	"PostgreSQL": "/logos/postgresql.png"
+} as { [key: string]: string };
+
 export type FilterControlsProps = {
 	filterState: FilterState;
 };
@@ -14,11 +19,18 @@ export default function FilterControls(props: FilterControlsProps) {
 
 	const dialectSelectionButtons = function () {
 		return dialects.map(function (dialect) {
+			const logoURL = dialectLogoURLs[dialect];
 			const selected = dialect == selectedDialect;
 			const attributes = {
-				"className": selected ? widgetClasses["selected"] : ""
+				"className": selected ? widgetClasses["selected"] : "",
+				"onClick": () => selectDialect(dialect)
 			};
-			return <button key={dialect} {...attributes}>{dialect}</button>;
+			return (
+				<button key={dialect} {...attributes}>
+					{logoURL && <img src={logoURL} />}
+					{dialect}
+				</button>
+			);
 		});
 	}();
 	
@@ -27,7 +39,8 @@ export default function FilterControls(props: FilterControlsProps) {
 			"value": titleFilter,
 			"onChange": function (e: React.ChangeEvent<HTMLInputElement>) {
 				setTitleFilter(e.currentTarget.value);
-			}
+			},
+			"placeholder": "Filter cards by title here..."
 		};
 		return <input {...attributes} />;
 	}();
