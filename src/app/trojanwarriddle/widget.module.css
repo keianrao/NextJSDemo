@@ -1,0 +1,24 @@
+
+.context p:has(span) {
+	display: grid;
+	grid-template-columns: auto auto 1fr;
+	gap: 0 0.5em;
+}
+
+.context p:has(span) span:nth-child(3n + 1) {
+	text-align: right;
+}
+
+.context p:has(span) span:nth-child(3n + 2) {
+	opacity: 0.5;
+}
+
+.buttons {
+	display: flex;
+	gap: 1em;
+	align-items: center;
+}
+
+.buttons button {
+	min-width: 4em;
+}
