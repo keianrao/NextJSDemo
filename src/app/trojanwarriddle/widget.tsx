@@ -1,97 +1,46 @@
 'use client'
 
-import { useState, useMemo } from "react";
+import { useBoardState } from "./useBoardState";
 import widgetClasses from "./widget.module.css";
 
 
-
-type BoardState = {
-	charArray: string;
-	movesMade: number;
+type FromUseBoardState = {
+	fromUseBoardState: ReturnType<typeof useBoardState>;
 };
 
-function useBoardState(){
-	const initialBoardState = function (): BoardState {
-		const charArray = function () {
-			const a = "GGGGTGGGGG";
-			const b = "TTTTGTTTTT";
-			return a.repeat(5) + b + a.repeat(5);
-		}();
-		const movesMade = 0;
-		return { charArray, movesMade };
-	}();
-
-	const [boardState, setBoardState] = useState(initialBoardState);
-
-	function performAction(action: string) {
-		const { charArray, movesMade } = boardState;
-
-		if (action == "Up") {
-			setBoardState({ ...boardState, movesMade: movesMade + 1 });
-		}
-		if (action == "Down") {
-
-		}
-		if (action == "Left") {
-
-		}
-		if (action == "Right") {
-
-		}
-		if (action == "Select") {
-
-		}
-		if (action == "Swap") {
-
-		}
-		if (action == "Reset") {
-			setBoardState(initialBoardState);
-			// It's okay to reuse that object, as board
-			// state is supposed to be used immutably.
-		}
-	}
-
-	return { boardState, performAction };
-}
-
-
-
-
-type CommonProps = {
-	boardStateUsage: ReturnType<typeof useBoardState>;
-};
-
-function Board({ boardStateUsage }: CommonProps) {
-	const { boardState, performAction } = boardStateUsage;
-	const { charArray } = boardState;
+function Board({ fromUseBoardState }: FromUseBoardState) {
+	const { boardState, performAction } = fromUseBoardState;
+	const { teamGrid, lockedGrid, selectedGrid } = boardState;
 
 	const tiles = function () {
-		const selectedOffsets = useMemo(function () {
-			return [Math.floor(Math.random() * charArray.length)];
-		}, [boardStateUsage]);
+		const isGreek = (x: number, y: number) => teamGrid.read(x, y) == "G";
+		const isTrojan = (x: number, y: number) => teamGrid.read(x, y) == "T";
+		const isSelected = (x: number, y: number) => selectedGrid.read(x, y) == "S";
+		const isLocked = (x: number, y: number) => lockedGrid.read(x, y) == "L";
 
-		const lockedOffsets = useMemo(function () {
-			return Array.from(charArray)
-				.map((_, o) => Math.random() < 0.05 ? o : -1)
-				.filter(o => o != -1);
-		}, [boardStateUsage]);
-
-		return Array.from(charArray).map(function (char, o) {
+		const returnee = [] as React.JSX.Element[];
+		for (let y = 0; y < teamGrid.rows; ++y)
+		for (let x = 0; x < teamGrid.columns; ++x) {
 			const className = function () {
 				const classNames = [];
 				if (true) classNames.push("tile");
-				if (char == "G") classNames.push("greek");
-				if (char == "T") classNames.push("trojan");
-				if (selectedOffsets.includes(o)) classNames.push("selected");
-				if (lockedOffsets.includes(o)) classNames.push("locked");
+				if (isGreek(x, y)) classNames.push("greek");
+				if (isTrojan(x, y)) classNames.push("trojan");
+				if (isSelected(x, y)) classNames.push("selected");
+				if (isLocked(x, y)) classNames.push("locked");
 				return classNames.map(s => widgetClasses[s]).join(" ");
 			}();
+
 			const content = "⛺\uFE0E";
-			return <div key={o} className={className} suppressHydrationWarning>{content}</div>;
-		});
+
+			const key = x + "," + y;
+
+			returnee.push(<div key={key} className={className}>{content}</div>);
+		}
+		return returnee;
 	}();
 
-	const onKeyDown = function (e) {
+	const onKeyDown = function (e: React.KeyboardEvent) {
 		if (e.key == "ArrowUp") performAction("Up");
 		if (e.key == "ArrowDown") performAction("Down");
 		if (e.key == "ArrowLeft") performAction("Left");
@@ -113,8 +62,8 @@ function Board({ boardStateUsage }: CommonProps) {
 
 
 
-function Buttons({ boardStateUsage }: CommonProps) {
-	const { boardState, performAction } = boardStateUsage;
+function Buttons({ fromUseBoardState }: FromUseBoardState) {
+	const { boardState, performAction } = fromUseBoardState;
 	const { movesMade } = boardState;
 
 	return (
@@ -134,12 +83,12 @@ function Buttons({ boardStateUsage }: CommonProps) {
 
 
 export default function Widget() {
-	const boardStateUsage = useBoardState();
+	const fromUseBoardState = useBoardState();
 
 	return (
 		<div className={widgetClasses["widget"]}>
-			<Board boardStateUsage={boardStateUsage} />
-			<Buttons boardStateUsage={boardStateUsage} />
+			<Board fromUseBoardState={fromUseBoardState} />
+			<Buttons fromUseBoardState={fromUseBoardState} />
 		</div>
 	);
 }
