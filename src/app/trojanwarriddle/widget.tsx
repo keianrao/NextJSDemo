@@ -1,53 +1,45 @@
 'use client'
 
-import { useBoardState } from "./useBoardState";
+import { useBoard } from "./useBoard";
 import widgetClasses from "./widget.module.css";
 
 
-type FromUseBoardState = {
-	fromUseBoardState: ReturnType<typeof useBoardState>;
+
+type UsesBoard = {
+	board: ReturnType<typeof useBoard>;
 };
 
-function Board({ fromUseBoardState }: FromUseBoardState) {
-	const { boardState, performAction } = fromUseBoardState;
-	const { teamGrid, lockedGrid, selectedGrid } = boardState;
+function Board({ board }: UsesBoard) {
+	const { getTileStateList, performAction } = board;
 
 	const tiles = function () {
-		const isGreek = (x: number, y: number) => teamGrid.read(x, y) == "G";
-		const isTrojan = (x: number, y: number) => teamGrid.read(x, y) == "T";
-		const isSelected = (x: number, y: number) => selectedGrid.read(x, y) == "S";
-		const isLocked = (x: number, y: number) => lockedGrid.read(x, y) == "L";
-
-		const returnee = [] as React.JSX.Element[];
-		for (let y = 0; y < teamGrid.rows; ++y)
-		for (let x = 0; x < teamGrid.columns; ++x) {
+		return getTileStateList().map(function (tileState, o) {
 			const className = function () {
-				const classNames = [];
-				if (true) classNames.push("tile");
-				if (isGreek(x, y)) classNames.push("greek");
-				if (isTrojan(x, y)) classNames.push("trojan");
-				if (isSelected(x, y)) classNames.push("selected");
-				if (isLocked(x, y)) classNames.push("locked");
-				return classNames.map(s => widgetClasses[s]).join(" ");
+				const lookupKeys = [];
+				lookupKeys.push("tile");
+				if (tileState.isGreek) lookupKeys.push("greek");
+				if (tileState.isTrojan) lookupKeys.push("trojan");
+				if (tileState.isSelected) lookupKeys.push("selected");
+				if (tileState.isCursor) lookupKeys.push("cursor");
+				if (tileState.isLocked) lookupKeys.push("locked");
+				const classes = lookupKeys.map(s => widgetClasses[s]);
+				return classes.join(" ");
 			}();
-
-			const content = "⛺\uFE0E";
-
-			const key = x + "," + y;
-
-			returnee.push(<div key={key} className={className}>{content}</div>);
-		}
-		return returnee;
+			return <div key={o} className={className}>{"⛺\uFE0E"}</div>;
+		});
 	}();
 
 	const onKeyDown = function (e: React.KeyboardEvent) {
-		if (e.key == "ArrowUp") performAction("Up");
-		if (e.key == "ArrowDown") performAction("Down");
-		if (e.key == "ArrowLeft") performAction("Left");
-		if (e.key == "ArrowRight") performAction("Right");
-		if (e.key == "Space") performAction("Select");
-		if (e.key == "Return") performAction("Swap");
-		if (e.key == "0" && e.ctrlKey) performAction("Reset");
+		let caught = false;
+		if (e.key == "ArrowUp") performAction("Cursor up"), caught = true;
+		if (e.key == "ArrowDown") performAction("Cursor down"), caught = true;
+		if (e.key == "ArrowLeft") performAction("Cursor left"), caught = true;
+		if (e.key == "ArrowRight") performAction("Cursor right"), caught = true;
+		if (e.key == " ") performAction("Select at cursor"), caught = true;
+		if (e.key == "Enter") performAction("Swap with cursor"), caught = true;
+		if (e.key == "0" && e.ctrlKey) performAction("Reset board"), caught = true;
+		if (e.key == "Backspace") performAction("Undo last move"), caught = true;
+		if (caught) e.preventDefault();
 	};
 
 	const attributes = {
@@ -61,21 +53,22 @@ function Board({ fromUseBoardState }: FromUseBoardState) {
 
 
 
+function Buttons({ board }: UsesBoard) {
+	const { performAction, swapsMade, hasSelection } = board;
 
-function Buttons({ fromUseBoardState }: FromUseBoardState) {
-	const { boardState, performAction } = fromUseBoardState;
-	const { movesMade } = boardState;
+	const pa = (...args: Parameters<typeof performAction>) => performAction(...args);
 
 	return (
 		<div className={widgetClasses["buttons"]}>
-			<span>{movesMade} moves made.</span>
-			<button onClick={_ => performAction("Up")}>Up</button>
-			<button onClick={_ => performAction("Down")}>Down</button>
-			<button onClick={_ => performAction("Left")}>Left</button>
-			<button onClick={_ => performAction("Right")}>Right</button>
-			<button onClick={_ => performAction("Select")}>Select</button>
-			<button onClick={_ => performAction("Swap")}>Swap</button>
-			<button onClick={_ => performAction("Reset")}>Reset</button>
+			<span>{swapsMade} swaps made.</span>
+			<button disabled={false} onClick={_ => pa("Cursor up")}>Up</button>
+			<button disabled={false} onClick={_ => pa("Cursor down")}>Down</button>
+			<button disabled={false} onClick={_ => pa("Cursor left")}>Left</button>
+			<button disabled={false} onClick={_ => pa("Cursor right")}>Right</button>
+			<button disabled={false} onClick={_ => pa("Select at cursor")}>Select</button>
+			<button disabled={!hasSelection} onClick={_ => pa("Swap with cursor")}>Swap</button>
+			<button disabled={false} onClick={_ => pa("Reset board")}>Reset</button>
+			<button disabled={true} onClick={_ => pa("Undo last move")}>Undo</button>
 		</div>
 	);
 }
@@ -83,12 +76,12 @@ function Buttons({ fromUseBoardState }: FromUseBoardState) {
 
 
 export default function Widget() {
-	const fromUseBoardState = useBoardState();
+	const board = useBoard();
 
 	return (
 		<div className={widgetClasses["widget"]}>
-			<Board fromUseBoardState={fromUseBoardState} />
-			<Buttons fromUseBoardState={fromUseBoardState} />
+			<Board board={board} />
+			<Buttons board={board} />
 		</div>
 	);
 }
