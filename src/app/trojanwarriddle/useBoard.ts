@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { BoardData } from "./boardData";
+import type { BoardDataUndoToken } from "./boardData";
 
 export function useBoard() {
 	const [boardData, setBoardData] = useState(BoardData.initial());
+	const [undoTokens, setUndoTokens] = useState<BoardDataUndoToken[]>([]);
 
 	function getTileStateList() {
 		return BoardData.tileStateList(boardData);
@@ -12,31 +14,54 @@ export function useBoard() {
 
 	function performAction(action: string) {
 		if (action == "Cursor up") {
-			setBoardData(BoardData.up(boardData));
+			const { newBoardData, undoToken } = BoardData.up(boardData);
+			if (newBoardData) setBoardData(newBoardData);
+			if (undoToken) setUndoTokens(a => a.concat(undoToken));
 		}
 		if (action == "Cursor down") {
-			setBoardData(BoardData.down(boardData));
+			const { newBoardData, undoToken } = BoardData.down(boardData);
+			if (newBoardData) setBoardData(newBoardData);
+			if (undoToken) setUndoTokens(a => a.concat(undoToken));
 		}
 		if (action == "Cursor left") {
-			setBoardData(BoardData.left(boardData));
+			const { newBoardData, undoToken } = BoardData.left(boardData);
+			if (newBoardData) setBoardData(newBoardData);
+			if (undoToken) setUndoTokens(a => a.concat(undoToken));
 		}
 		if (action == "Cursor right") {
-			setBoardData(BoardData.right(boardData));
+			const { newBoardData, undoToken } = BoardData.right(boardData);
+			if (newBoardData) setBoardData(newBoardData);
+			if (undoToken) setUndoTokens(a => a.concat(undoToken));
 		}
 		if (action == "Select at cursor") {
-			setBoardData(BoardData.select(boardData));
+			const { newBoardData, undoToken } = BoardData.select(boardData);
+			if (newBoardData) setBoardData(newBoardData);
+			if (undoToken) setUndoTokens(a => a.concat(undoToken));
 		}
 		if (action == "Swap with cursor") {
-			setBoardData(BoardData.swap(boardData));
+			const { newBoardData, undoToken } = BoardData.swap(boardData);
+			if (newBoardData) setBoardData(newBoardData);
+			if (undoToken) setUndoTokens(a => a.concat(undoToken));
 		}
 		if (action == "Reset board") {
 			setBoardData(BoardData.initial());
+			setUndoTokens([]);
+		}
+		if (action == "Undo last move") {
+			if (undoTokens.length > 0) {
+				const last = undoTokens.at(-1)!;
+				const upto = undoTokens.slice(0, -1);
+				setBoardData(BoardData.undo(boardData, last));
+				setUndoTokens(upto);
+			}
 		}
 	}
 
-	const swapsMade = boardData.swapsMade;
+	const swapsMade = BoardData.countSwapsMade(undoTokens);
 
 	const hasSelection = BoardData.hasSelection(boardData);
 
-	return { getTileStateList, performAction, swapsMade, hasSelection };
+	const canUndo = undoTokens.length > 0;
+
+	return { getTileStateList, performAction, swapsMade, hasSelection, canUndo };
 }

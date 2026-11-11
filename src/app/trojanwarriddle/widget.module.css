@@ -52,11 +52,11 @@
 }
 
 .board .locked {
-	background: #0002;
+	background: #F403;
 }
 
 .board .selected {
-	background: #0006;
+	background: #00F3;
 }
 
 .board .cursor {

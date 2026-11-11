@@ -30,16 +30,16 @@ function Board({ board }: UsesBoard) {
 	}();
 
 	const onKeyDown = function (e: React.KeyboardEvent) {
-		let caught = false;
-		if (e.key == "ArrowUp") performAction("Cursor up"), caught = true;
-		if (e.key == "ArrowDown") performAction("Cursor down"), caught = true;
-		if (e.key == "ArrowLeft") performAction("Cursor left"), caught = true;
-		if (e.key == "ArrowRight") performAction("Cursor right"), caught = true;
-		if (e.key == " ") performAction("Select at cursor"), caught = true;
-		if (e.key == "Enter") performAction("Swap with cursor"), caught = true;
-		if (e.key == "0" && e.ctrlKey) performAction("Reset board"), caught = true;
-		if (e.key == "Backspace") performAction("Undo last move"), caught = true;
-		if (caught) e.preventDefault();
+		const finish = () => e.preventDefault();
+		if (e.key == "ArrowUp") performAction("Cursor up"), finish();
+		if (e.key == "ArrowDown") performAction("Cursor down"), finish();
+		if (e.key == "ArrowLeft") performAction("Cursor left"), finish();
+		if (e.key == "ArrowRight") performAction("Cursor right"), finish();
+		if (e.key == " ") performAction("Select at cursor"), finish();
+		if (e.key == "Enter") performAction("Swap with cursor"), finish();
+		if (e.key == "0" && e.ctrlKey) performAction("Reset board"), finish();
+		if (e.key == "Backspace") performAction("Undo last move"), finish();
+		if (e.key == "z" && e.ctrlKey) performAction("Undo last move"), finish();
 	};
 
 	const attributes = {
@@ -54,21 +54,21 @@ function Board({ board }: UsesBoard) {
 
 
 function Buttons({ board }: UsesBoard) {
-	const { performAction, swapsMade, hasSelection } = board;
+	const { performAction, swapsMade, hasSelection, canUndo } = board;
 
-	const pa = (...args: Parameters<typeof performAction>) => performAction(...args);
+	const oc = (s: string) => () => performAction(s);
 
 	return (
 		<div className={widgetClasses["buttons"]}>
 			<span>{swapsMade} swaps made.</span>
-			<button disabled={false} onClick={_ => pa("Cursor up")}>Up</button>
-			<button disabled={false} onClick={_ => pa("Cursor down")}>Down</button>
-			<button disabled={false} onClick={_ => pa("Cursor left")}>Left</button>
-			<button disabled={false} onClick={_ => pa("Cursor right")}>Right</button>
-			<button disabled={false} onClick={_ => pa("Select at cursor")}>Select</button>
-			<button disabled={!hasSelection} onClick={_ => pa("Swap with cursor")}>Swap</button>
-			<button disabled={false} onClick={_ => pa("Reset board")}>Reset</button>
-			<button disabled={true} onClick={_ => pa("Undo last move")}>Undo</button>
+			<button disabled={false} onClick={oc("Cursor up")}>Up (↑)</button>
+			<button disabled={false} onClick={oc("Cursor down")}>Down (↓)</button>
+			<button disabled={false} onClick={oc("Cursor left")}>Left (←)</button>
+			<button disabled={false} onClick={oc("Cursor right")}>Right (→)</button>
+			<button disabled={false} onClick={oc("Select at cursor")}>Select (Space)</button>
+			<button disabled={!hasSelection} onClick={oc("Swap with cursor")}>Swap (Enter)</button>
+			<button disabled={false} onClick={oc("Reset board")}>Reset (Ctrl-0)</button>
+			<button disabled={!canUndo} onClick={oc("Undo last move")}>Undo (Ctrl-Z)</button>
 		</div>
 	);
 }
