@@ -28,8 +28,6 @@ The Docker image will be hosted on [Render](https://render.com/login).
 
 ## Creation conditions and project motivation
 
-This project was created just to spend some time to verify that I can put a Next.js app on Github, and possibly set up automatic builds (at least for the Docker image) in the future, when I get around to learning that.
+This project was created just to spend some time to verify that I can put a Next.js app on GitHub, and to test automatic building of the Docker image.
 
 The initial project state was created with a wizard: `bun create next-app` (being run on 28 October 2026, means [version 16.4.3 of the create-next-app NPM package](https://www.npmjs.com/package/create-next-app/v/16.4.3)).
-
-
