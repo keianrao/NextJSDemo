@@ -12,7 +12,7 @@ export function useBoard() {
 		return BoardData.tileStateList(boardData);
 	}
 
-	function performAction(action: string) {
+	function performAction(action: string, ...args: any[]) {
 		if (action == "Cursor up") {
 			const { newBoardData, undoToken } = BoardData.up(boardData);
 			if (newBoardData) setBoardData(newBoardData);
@@ -30,6 +30,12 @@ export function useBoard() {
 		}
 		if (action == "Cursor right") {
 			const { newBoardData, undoToken } = BoardData.right(boardData);
+			if (newBoardData) setBoardData(newBoardData);
+			if (undoToken) setUndoTokens(a => a.concat(undoToken));
+		}
+		if (action == "Cursor to coordinates") {
+			const [x, y] = args as [number, number];
+			const { newBoardData, undoToken } = BoardData.to(boardData, x, y);
 			if (newBoardData) setBoardData(newBoardData);
 			if (undoToken) setUndoTokens(a => a.concat(undoToken));
 		}

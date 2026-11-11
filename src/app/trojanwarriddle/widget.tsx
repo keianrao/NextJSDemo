@@ -9,25 +9,41 @@ type UsesBoard = {
 	board: ReturnType<typeof useBoard>;
 };
 
-function Board({ board }: UsesBoard) {
+function Tiles({ board }: UsesBoard) {
 	const { getTileStateList, performAction } = board;
 
-	const tiles = function () {
-		return getTileStateList().map(function (tileState, o) {
-			const className = function () {
-				const lookupKeys = [];
-				lookupKeys.push("tile");
-				if (tileState.isGreek) lookupKeys.push("greek");
-				if (tileState.isTrojan) lookupKeys.push("trojan");
-				if (tileState.isSelected) lookupKeys.push("selected");
-				if (tileState.isCursor) lookupKeys.push("cursor");
-				if (tileState.isLocked) lookupKeys.push("locked");
-				const classes = lookupKeys.map(s => widgetClasses[s]);
-				return classes.join(" ");
-			}();
-			return <div key={o} className={className}>{"⛺\uFE0E"}</div>;
-		});
-	}();
+	return getTileStateList().map(function (tileState, o) {
+		const className = function () {
+			const lookupKeys = [];
+			lookupKeys.push("tile");
+			if (tileState.isGreek) lookupKeys.push("greek");
+			if (tileState.isTrojan) lookupKeys.push("trojan");
+			if (tileState.isSelected) lookupKeys.push("selected");
+			if (tileState.isCursor) lookupKeys.push("cursor");
+			if (tileState.isLocked) lookupKeys.push("locked");
+			const classes = lookupKeys.map(s => widgetClasses[s]);
+			return classes.join(" ");
+		}();
+
+		const onClick = function () {
+			const { x, y } = tileState;
+			performAction("Cursor to coordinates", x, y);
+		};
+
+		return (
+			<div key={o} className={className} onClick={onClick}>
+				{"⛺\uFE0E"}
+			</div>
+		);
+	});
+}
+
+
+
+
+
+function Board({ board }: UsesBoard) {
+	const { performAction } = board;
 
 	const onKeyDown = function (e: React.KeyboardEvent) {
 		const finish = () => e.preventDefault();
@@ -48,7 +64,7 @@ function Board({ board }: UsesBoard) {
 		"onKeyDown": onKeyDown
 	};
 
-	return <div {...attributes}>{tiles}</div>;
+	return <div {...attributes}><Tiles board={board} /></div>;
 }
 
 
@@ -61,13 +77,16 @@ function Buttons({ board }: UsesBoard) {
 	return (
 		<div className={widgetClasses["buttons"]}>
 			<span>{swapsMade} swaps made.</span>
-			<button disabled={false} onClick={oc("Cursor up")}>Up (↑)</button>
-			<button disabled={false} onClick={oc("Cursor down")}>Down (↓)</button>
+			<hr />
+			<button disabled={false} onClick={oc("Reset board")}>Reset (Ctrl-0)</button>
+			<hr />
 			<button disabled={false} onClick={oc("Cursor left")}>Left (←)</button>
 			<button disabled={false} onClick={oc("Cursor right")}>Right (→)</button>
+			<button disabled={false} onClick={oc("Cursor up")}>Up (↑)</button>
+			<button disabled={false} onClick={oc("Cursor down")}>Down (↓)</button>
+			<hr />
 			<button disabled={false} onClick={oc("Select at cursor")}>Select (Space)</button>
 			<button disabled={!hasSelection} onClick={oc("Swap with cursor")}>Swap (Enter)</button>
-			<button disabled={false} onClick={oc("Reset board")}>Reset (Ctrl-0)</button>
 			<button disabled={!canUndo} onClick={oc("Undo last move")}>Undo (Ctrl-Z)</button>
 		</div>
 	);

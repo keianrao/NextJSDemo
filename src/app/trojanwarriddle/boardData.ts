@@ -96,6 +96,13 @@ export const BoardData = {
 			return { newBoardData, undoToken };
 		}
 	},
+	to: function (boardData: BoardDataType, x: number, y: number) {
+		happyPath: {
+			const newBoardData = { ...boardData, cursor: [x, y] as Point };
+			const undoToken = undefined;
+			return { newBoardData, undoToken };
+		}
+	},
 	select: function (boardData: BoardDataType) {
 		happyPath: {
 			const { locks, cursor: [xc, yc] } = boardData;
