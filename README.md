@@ -17,17 +17,17 @@ The Docker image will be hosted on [Render](https://render.com/login).
 
 ## Screenshots
 
-![Index of website, showing three pages, 'Abacus' and 'Basic SQL examples' among them.](public/screenshots/screenshot-3-2026_10_30.png)
+![Index of website, showing four links to pages, 'Abacus' and 'Basic SQL examples' among them.](public/screenshots/screenshot-1-2026_11_11.png)
 ![Abacus. 16-digit one, rendered on the page, with numbers above that can be typed into to manipulate.](public/screenshots/screenshot-2-2026_10_29.png)
 ![Basic SQL examples. 'create' had been entered into a search box, and three cards are shown, for example 'Create table' with a SQL statement to demonstrate syntax with variedly-typed columns. And there are buttons for MySQL and PostgreSQL at the top.](public/screenshots/screenshot-1-2026_10_31.png)
 ![Unfiltered cards (though search box is off-screen from scrolling to bottom). Cards with examples to alter columns, plus two sections here with tips and reference links for PostgreSQL.](public/screenshots/screenshot-2-2026_10_31.png)
+![Trojan War riddle page. Top of the page explains context of "try out the first riddle described in the following" and details and link to a YouTube video. Below that is a square board of blue or yellow-coloured tents in an arrangement.](public/screenshots/screenshot-2-2026_11_11.png)
+![Bottom of page showing some clickable control buttons, with keyboard mnemonics and the board halfway affected with "3 swaps made". Swapped tents indicated, a tent selection box..](public/screenshots/screenshot-3-2026_11_11.png)
 
 
 
 ## Creation conditions and project motivation
 
-This project was created just to spend some time to verify that I can put a Next.js app on Github, and possibly set up automatic builds (at least for the Docker image) in the future, when I get around to learning that.
+This project was created just to spend some time to verify that I can put a Next.js app on GitHub, and to test automatic building of the Docker image.
 
 The initial project state was created with a wizard: `bun create next-app` (being run on 28 October 2026, means [version 16.4.3 of the create-next-app NPM package](https://www.npmjs.com/package/create-next-app/v/16.4.3)).
-
-

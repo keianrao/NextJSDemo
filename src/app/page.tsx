@@ -6,7 +6,8 @@ import pageClasses from "./page.module.css";
 const links = [
   { href: "abacus", title: "Abacus" },
   { href: "capturedemo", title: "Screen capture demo" },
-  { href: "sqlexamples", title: "Basic SQL examples" }
+  { href: "sqlexamples", title: "Basic SQL examples" },
+  { href: "trojanwarriddle", title: "Trojan War riddle" }
 ];
 
 export const metadata: Metadata = {
